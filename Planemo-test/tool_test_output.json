@@ -1,0 +1,177 @@
+{
+    "summary": {
+        "num_errors": 0,
+        "num_failures": 0,
+        "num_skips": 0,
+        "num_tests": 1
+    },
+    "tests": [
+        {
+            "data": {
+                "inputs": {
+                    "annotation": {
+                        "id": "a41638739544a0b2",
+                        "src": "hda"
+                    },
+                    "annotation_related_species": {
+                        "id": "aef6a8260cda6528",
+                        "src": "hda"
+                    },
+                    "clade": "vertebrates",
+                    "genome": {
+                        "id": "fd74b2d74202144a",
+                        "src": "hda"
+                    },
+                    "genome_related_species": {
+                        "id": "df7b237fe19b17be",
+                        "src": "hda"
+                    },
+                    "org_name": "Homo_sapiens",
+                    "rRNAs": {
+                        "id": "7738684ab1cd96a7",
+                        "src": "hda"
+                    },
+                    "reads_r1": [
+                        {
+                            "id": "05641f49c2afe5da",
+                            "src": "hda"
+                        },
+                        {
+                            "id": "519a632ea4817411",
+                            "src": "hda"
+                        }
+                    ],
+                    "reads_r2": [
+                        {
+                            "id": "92a3ec5b6ef0d15d",
+                            "src": "hda"
+                        },
+                        {
+                            "id": "d89789d43da39abd",
+                            "src": "hda"
+                        }
+                    ]
+                },
+                "job": {
+                    "command_line": "# Create input config (data.groovy) cat > data.groovy <<EOF reads_R1=\"/tmp/tmpx2cuko3n/files/7/5/9/dataset_759aca62-ddcb-472e-95e2-649c906ee658.dat,/tmp/tmpx2cuko3n/files/8/a/9/dataset_8a95f74d-8d12-4430-8c41-d16a37c46ab7.dat\" reads_R2=\"/tmp/tmpx2cuko3n/files/7/9/9/dataset_799d181f-c8c5-490b-b658-f4175d138854.dat,/tmp/tmpx2cuko3n/files/5/9/7/dataset_59727d36-97e0-4cce-824d-fb639b5e8df5.dat\" rRNAs=\"test_rRNAs.fa\" org_name=\"Homo_sapiens\" clade=\"vertebrates\" genome=\"test_genome.fa\" annotation=\"test_annotation.gtf\" EOF  # Add optional parameters if provided  # Defaults for related species (optional to override) echo 'rel_sp_name=\"Mus_musculus\"' >> data.groovy echo 'genome_related_species=\"test_rel_genome.fa\"' >> data.groovy echo 'annotation_related_species=\"test_rel_annotation.gtf\"' >> data.groovy  # Optional related species extras  # Run Bpipe pipeline bpipe run -n ${GALAXY_SLOTS:-4} /pipeline/LncRAnalyzer/Main.groovy data.groovy  zip -r LncRAnalyzer-summary.zip LncRAnalyzer-summary",
+                    "command_version": "",
+                    "copied_from_job_id": null,
+                    "create_time": "2025-05-19T10:36:52.634828",
+                    "dependencies": [],
+                    "exit_code": 0,
+                    "external_id": "28815",
+                    "galaxy_version": "24.2",
+                    "handler": null,
+                    "history_id": "05641f49c2afe5da",
+                    "id": "b23999e2af9a0218",
+                    "inputs": {
+                        "annotation": {
+                            "id": "a41638739544a0b2",
+                            "src": "hda",
+                            "uuid": "2f1bdb7e-dbb6-4c84-baff-0417231e19c9"
+                        },
+                        "annotation_related_species": {
+                            "id": "aef6a8260cda6528",
+                            "src": "hda",
+                            "uuid": "33076e27-003a-434f-8694-77b111e777fb"
+                        },
+                        "genome": {
+                            "id": "fd74b2d74202144a",
+                            "src": "hda",
+                            "uuid": "9e5f6fc6-fc46-4244-b640-2e6f4ed7f395"
+                        },
+                        "genome_related_species": {
+                            "id": "df7b237fe19b17be",
+                            "src": "hda",
+                            "uuid": "c699e9e4-b987-481f-a250-9591051053af"
+                        },
+                        "rRNAs": {
+                            "id": "7738684ab1cd96a7",
+                            "src": "hda",
+                            "uuid": "a0eb1899-7c03-4386-90bb-9a5f0cf00636"
+                        },
+                        "reads_r1": {
+                            "id": "05641f49c2afe5da",
+                            "src": "hda",
+                            "uuid": "759aca62-ddcb-472e-95e2-649c906ee658"
+                        },
+                        "reads_r11": {
+                            "id": "05641f49c2afe5da",
+                            "src": "hda",
+                            "uuid": "759aca62-ddcb-472e-95e2-649c906ee658"
+                        },
+                        "reads_r12": {
+                            "id": "519a632ea4817411",
+                            "src": "hda",
+                            "uuid": "8a95f74d-8d12-4430-8c41-d16a37c46ab7"
+                        },
+                        "reads_r2": {
+                            "id": "92a3ec5b6ef0d15d",
+                            "src": "hda",
+                            "uuid": "799d181f-c8c5-490b-b658-f4175d138854"
+                        },
+                        "reads_r21": {
+                            "id": "92a3ec5b6ef0d15d",
+                            "src": "hda",
+                            "uuid": "799d181f-c8c5-490b-b658-f4175d138854"
+                        },
+                        "reads_r22": {
+                            "id": "d89789d43da39abd",
+                            "src": "hda",
+                            "uuid": "59727d36-97e0-4cce-824d-fb639b5e8df5"
+                        }
+                    },
+                    "job_messages": [],
+                    "job_metrics": [],
+                    "job_runner_name": null,
+                    "job_stderr": "",
+                    "job_stdout": "",
+                    "model_class": "Job",
+                    "output_collections": {},
+                    "outputs": {
+                        "results_zip": {
+                            "id": "b23999e2af9a0218",
+                            "src": "hda",
+                            "uuid": "faa6bb30-51f4-40ce-a3d8-a3db7dc8ba74"
+                        }
+                    },
+                    "params": {
+                        "__input_ext": "\"txt\"",
+                        "chromInfo": "\"/tmp/tmpx2cuko3n/galaxy-dev/tool-data/shared/ucsc/chrom/?.len\"",
+                        "clade": "\"vertebrates\"",
+                        "dbkey": "\"?\"",
+                        "design": null,
+                        "known_lncRNAs": null,
+                        "liftover": null,
+                        "mir": null,
+                        "noncoding": null,
+                        "org_name": "\"Homo_sapiens\"",
+                        "rel_liftover": null,
+                        "rel_mir": null,
+                        "rel_noncoding": null,
+                        "rel_sno": null,
+                        "rel_sp_name": "\"Mus_musculus\"",
+                        "sno": null
+                    },
+                    "state": "ok",
+                    "stderr": "",
+                    "stdout": "",
+                    "tool_id": "lncranalyzer",
+                    "tool_stderr": "",
+                    "tool_stdout": "",
+                    "update_time": "2025-05-19T10:36:56.452081",
+                    "user_email": "planemo@galaxyproject.org",
+                    "user_id": "05641f49c2afe5da"
+                },
+                "status": "success",
+                "test_index": 0,
+                "time_seconds": 25.021153211593628,
+                "tool_id": "lncranalyzer",
+                "tool_version": "1.0.0"
+            },
+            "has_data": true,
+            "id": "lncranalyzer-0"
+        }
+    ],
+    "version": "0.1"
+}
