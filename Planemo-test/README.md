@@ -1,4 +1,4 @@
-# Testing of LncRAnalyzer with planemo [https://pypi.org/project/planemo/] for Galexy server integration
+# Testing and uploading LncRAnalyzer to Galaxy-toolshed using planemo [https://pypi.org/project/planemo/]
 
 1. We have created lncrnalyzer.xml file for planemo test
 2. Next, we created python v3.13 environment using conda
