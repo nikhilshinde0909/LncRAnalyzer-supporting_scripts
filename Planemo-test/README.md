@@ -27,7 +27,7 @@ echo 'type: unrestricted' >>.shed.yml
 8. Create ~/.planemo.yml file and paste content for login
 ```
 nano ~/.planemo.yml
-content to pase
+content to paste
 sheds:
   toolshed:
     key: <API KEY>
