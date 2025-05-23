@@ -16,3 +16,39 @@ planemo test lncranalyzer.xml
 ```
 5. This was succeed and output the  tool_test_output.html and tool_test_output.json
 6. LncRAnalyzer is ready for integration to galaxy workflow engine
+7. Create .shed.yml and add details to it as follows
+```
+echo 'name: lncranalyzer' >.shed.yml
+echo 'owner: nikhilshinde0909' >>.shed.yml
+echo 'description: A pipeline for lncRNAs and Novel Protein Coding Transcripts (NPCTs) identification using RNA-Seq' >>.shed.yml
+echo 'homepage_url: https://gitlab.com/nikhilshinde0909/LncRAnalyzer' >>.shed.yml'category: Transcriptomics' >>.shed.yml
+echo 'type: unrestricted' >>.shed.yml
+```
+8. Create ~/.planemo.yml file and paste content for login
+```
+nano ~/.planemo.yml
+content to pase
+sheds:
+  toolshed:
+    key: <API KEY>
+```
+10. Login to galaxy toolshed
+```
+planemo shed_login --shed_target toolshed
+```
+9. Init toolshed
+```
+planemo shed_init
+```
+10. Perform shed_lint
+```
+planemo shed_lint --biocontainers
+```
+11. Create repoistory
+```
+planemo shed_create --shed_target toolshed
+```
+12. Update repository with current version
+```
+planemo shed_update --shed_target toolshed --repository lncranalyzer --install
+```
