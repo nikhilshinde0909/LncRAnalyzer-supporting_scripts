@@ -1,0 +1,6 @@
+name: lncranalyzer
+owner: nikhilshinde0909
+description: A pipeline for lncRNAs and Novel Protein Coding Transcripts (NPCTs) identification using RNA-Seq
+homepage_url: https://gitlab.com/nikhilshinde0909/LncRAnalyzer
+category: Transcriptomics
+type: unrestricted
