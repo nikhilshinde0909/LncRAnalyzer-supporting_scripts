@@ -52,3 +52,7 @@ planemo shed_create --shed_target toolshed
 ```
 planemo shed_update --shed_target toolshed --repository lncranalyzer --install
 ```
+13. Upload repository as follows
+```
+planemo shed_upload --shed_target toolshed
+```
