@@ -3,7 +3,7 @@
 1. We have created lncrnalyzer.xml file for planemo test
 2. Next, we created python v3.13 environment using conda
 ```
-conda create -n python3.13 conda-forge::python=3.13
+mamba create -n python3.13  anaconda::python
 ```
 3. We activated python3.13 and install planemo in this environment
 ```
