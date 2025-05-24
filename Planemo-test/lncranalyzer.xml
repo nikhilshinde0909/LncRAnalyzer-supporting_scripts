@@ -90,11 +90,6 @@ bpipe run -n \${GALAXY_SLOTS:-4} /pipeline/LncRAnalyzer/Main.groovy data.groovy
 # Archive output
 zip -r LncRAnalyzer-summary.zip LncRAnalyzer-summary
     ]]></command>
-
-    <stdio>
-        <exit_code range="1:" level="fatal" description="Pipeline error"/>
-    </stdio>
-
     <inputs>
         <param name="reads_r1" type="data" multiple="true" format="fastq.gz" label="Reads R1 (comma-separated FASTQ file names)"/>
         <param name="reads_r2" type="data" multiple="true" format="fastq.gz" label="Reads R2 (comma-separated FASTQ file names)"/>
@@ -114,6 +109,7 @@ zip -r LncRAnalyzer-summary.zip LncRAnalyzer-summary
         <param name="known_lncRNAs" type="data" format="fasta" label="Known lncRNAs (optional)" optional="true"/>
         <param name="design" type="data" format="tsv" label="Design TSV (optional)" optional="true"/>
 
+        <!-- Related species -->
         <param name="rel_sp_name" type="text" label="Related species name" value="Mus_musculus"/>
         <param name="genome_related_species" type="data" format="fasta" label="Related species genome"/>
         <param name="annotation_related_species" type="data" format="gtf" label="Related species annotation"/>
@@ -127,6 +123,11 @@ zip -r LncRAnalyzer-summary.zip LncRAnalyzer-summary
         <data name="results_zip" format="zip" label="LncRAnalyzer Output" from_work_dir="LncRAnalyzer-summary.zip"/>
     </outputs>
 
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Pipeline error"/>
+    </stdio>
+
+    <!-- TEST SECTION -->
     <tests>
         <test>
             <param name="reads_r1" value="SRR1_1.fastq.gz,SRR2_1.fastq.gz"/>
@@ -136,12 +137,14 @@ zip -r LncRAnalyzer-summary.zip LncRAnalyzer-summary
             <param name="clade" value="vertebrates"/>
             <param name="genome" value="test_genome.fa"/>
             <param name="annotation" value="test_annotation.gtf"/>
+            <param name="rel_sp_name" value="Mus_musculus"/>
             <param name="genome_related_species" value="test_rel_genome.fa"/>
             <param name="annotation_related_species" value="test_rel_annotation.gtf"/>
+
+            <!-- Output check -->
             <output name="results_zip" file="dummy_output.zip" compare="sim_size"/>
         </test>
     </tests>
-
     <help>
 This Galaxy tool runs the Dockerized LncRAnalyzer pipeline via Bpipe.
 
@@ -153,12 +156,12 @@ This Galaxy tool runs the Dockerized LncRAnalyzer pipeline via Bpipe.
 **Optional:**
 - Liftover, miRNA, snoRNA, noncoding, known lncRNAs
 
-Inputs are dynamically written to a `data.groovy` config file to control pipeline execution.
+Inputs are dynamically written to a `data.groovy` config that controls the pipeline execution.
     </help>
-
+    
     <citations>
-        <citation type="doi">10.1101/2024.10.25.620275</citation>
-        <citation type="bibtex">
+    <citation type="doi">10.1101/2024.10.25.620275</citation>
+    <citation type="bibtex">
             @article {Nikhil2024.10.25.620275,
                 author = {Nikhil, Shinde and Mohideen, Habeeb Shaikh and Sella, Raja Natesan},
                 title = {LncRAnalyzer: Uncovering Long Non-Coding RNAs and Exploring Gene Co-expression Patterns in Sorghum Genomics},
@@ -170,7 +173,7 @@ Inputs are dynamically written to a `data.groovy` config file to control pipelin
                 eprint = {https://www.biorxiv.org/content/early/2024/10/25/2024.10.25.620275.full.pdf},
                 journal = {bioRxiv}
             }
-        </citation>
+            </citation>
     </citations>
 </tool>
 
