@@ -6,25 +6,25 @@ data <- read.table('ROC_values.TSV', header = TRUE, sep = '\t')
 # Get unique approaches
 approaches <- unique(data$Approach)
 
-# Create an empty list to store smoothed data frames
 smoothed_list <- list()
 
 for (app in approaches) {
   df_app <- data[data$Approach == app, ]
-  spline_fun <- splinefun(df_app$FPR, df_app$TPR, method = "hyman")
-
-  FPR_seq <- seq(min(df_app$FPR), max(df_app$FPR), length.out = 100)
-
-  TPR_smooth <- spline_fun(FPR_seq)
-
+  df_app <- df_app[order(df_app$FPR), ]
+  smooth <- spline(x = df_app$FPR, y = df_app$TPR, n = 100, method = 'hyman')
+  
   smoothed_df <- data.frame(
     Approach = app,
-    FPR = FPR_seq,
-    TPR = TPR_smooth
+    FPR = smooth$x,
+    TPR = smooth$y
   )
   
   smoothed_list[[app]] <- smoothed_df
 }
 
 data <- bind_rows(smoothed_list)
+data <- data %>% group_by(Approach) %>%
+  mutate(TPR = (TPR - min(TPR)) / (max(TPR) - min(TPR)),
+         FPR = (FPR - min(FPR)) / (max(FPR) - min(FPR)))
+
 write.table(data,'ROC_values5.TSV', row.names = F, col.names = T, sep = '\t', quote = F)
