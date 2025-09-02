@@ -1,0 +1,46 @@
+FPR	TPR	Approach
+0.0	0.0	CPAT-Human
+0.0902	0.8412	CPAT-Human
+1.0	1.0	CPAT-Human
+0.0	0.0	CPAT-Plants
+0.1263	0.976	CPAT-Plants
+1.0	1.0	CPAT-Plants
+0.0	0.0	CPAT-Sorghum
+0.0171	0.9817	CPAT-Sorghum
+1.0	1.0	CPAT-Sorghum
+0.0	0.0	RNAsamba-full length
+0.0458	0.4858	RNAsamba-full length
+1.0	1.0	RNAsamba-full length
+0.0	0.0	RNAsamba-partial length
+0.0648	0.5161	RNAsamba-partial length
+1.0	1.0	RNAsamba-partial length
+0.0	0.0	RNAsamba-Sorghum
+0.002	0.9958	RNAsamba-Sorghum
+1.0	1.0	RNAsamba-Sorghum
+0.0	0.0	CPC2
+0.1197	0.9703	CPC2
+1.0	1.0	CPC2
+0.0	0.0	LGC
+0.1209	0.9533	LGC
+1.0	1.0	LGC
+0.0	0.0	PfamScan
+0.2677	0.9903	PfamScan
+1.0	1.0	PfamScan
+0.0	0.0	FEELnc-Sorghum
+0.0015	1.0	FEELnc-Sorghum
+1.0	1.0	FEELnc-Sorghum
+0.0	0.0	FEELnc-Arabidopsis
+0.0023	1.0	FEELnc-Arabidopsis
+1.0	1.0	FEELnc-Arabidopsis
+0.0	0.0	FEELnc-Human
+0.0011	0.9887	FEELnc-Human
+1.0	1.0	FEELnc-Human
+0.0	0.0	LncFinder-Sorghum
+0.0023	0.9974	LncFinder-Sorghum
+1.0	1.0	LncFinder-Sorghum
+0.0	0.0	LncFinder-Plants
+0.1193	0.9771	LncFinder-Plants
+1.0	1.0	LncFinder-Plants
+0.0	0.0	LncFinder-Human
+0.002	0.9463	LncFinder-Human
+1.0	1.0	LncFinder-Human

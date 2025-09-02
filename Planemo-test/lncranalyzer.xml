@@ -1,0 +1,179 @@
+<tool id="lncranalyzer" name="LncRAnalyzer" version="1.0.0">
+    <description>A pipeline for lncRNAs and Novel Protein Coding Transcripts (NPCTs) identification using RNA-Seq</description>
+
+    <requirements>
+        <container type="docker">nikhilshinde0909/lncranalyzer:latest</container>
+    </requirements>
+
+    <command><![CDATA[
+# Create input config (data.groovy)
+cat > data.groovy <<EOF
+reads_R1="${reads_r1}"
+reads_R2="${reads_r2}"
+rRNAs="${rRNAs.name}"
+org_name="${org_name}"
+clade="${clade}"
+genome="${genome.name}"
+annotation="${annotation.name}"
+EOF
+
+# Optional inputs
+#if $liftover
+echo 'liftover="${liftover.name}"' >> data.groovy
+#else
+echo 'liftover=""' >> data.groovy
+#end if
+
+#if $noncoding
+echo 'noncoding="${noncoding.name}"' >> data.groovy
+#else
+echo 'noncoding=""' >> data.groovy
+#end if
+
+#if $mir
+echo 'mir="${mir.name}"' >> data.groovy
+#else
+echo 'mir=""' >> data.groovy
+#end if
+
+#if $sno
+echo 'sno="${sno.name}"' >> data.groovy
+#else
+echo 'sno=""' >> data.groovy
+#end if
+
+#if $known_lncRNAs
+echo 'known_lncRNAs_FA="${known_lncRNAs.name}"' >> data.groovy
+#else
+echo 'known_lncRNAs_FA=""' >> data.groovy
+#end if
+
+#if $design
+echo 'design="${design.name}"' >> data.groovy
+#else
+echo 'design=""' >> data.groovy
+#end if
+
+# Related species core
+echo 'rel_sp_name="${rel_sp_name}"' >> data.groovy
+echo 'genome_related_species="${genome_related_species.name}"' >> data.groovy
+echo 'annotation_related_species="${annotation_related_species.name}"' >> data.groovy
+
+# Related species optional
+#if $rel_liftover
+echo 'rel_liftover="${rel_liftover.name}"' >> data.groovy
+#else
+echo 'rel_liftover=""' >> data.groovy
+#end if
+
+#if $rel_noncoding
+echo 'rel_noncoding="${rel_noncoding.name}"' >> data.groovy
+#else
+echo 'rel_noncoding=""' >> data.groovy
+#end if
+
+#if $rel_mir
+echo 'rel_mir="${rel_mir.name}"' >> data.groovy
+#else
+echo 'rel_mir=""' >> data.groovy
+#end if
+
+#if $rel_sno
+echo 'rel_sno="${rel_sno.name}"' >> data.groovy
+#else
+echo 'rel_sno=""' >> data.groovy
+#end if
+
+# Run pipeline
+bpipe run -n \${GALAXY_SLOTS:-4} /pipeline/LncRAnalyzer/Main.groovy data.groovy
+
+# Archive output
+zip -r LncRAnalyzer-summary.zip LncRAnalyzer-summary
+    ]]></command>
+    <inputs>
+        <param name="reads_r1" type="data" multiple="true" format="fastq.gz" label="Reads R1 (comma-separated FASTQ file names)"/>
+        <param name="reads_r2" type="data" multiple="true" format="fastq.gz" label="Reads R2 (comma-separated FASTQ file names)"/>
+        <param name="rRNAs" type="data" format="fasta" label="rRNA sequences"/>
+        <param name="org_name" type="text" label="Organism name" value="Homo_sapiens"/>
+        <param name="clade" type="select" label="Clade">
+            <option value="vertebrates" selected="true">Vertebrates</option>
+            <option value="plants">Plants</option>
+        </param>
+        <param name="genome" type="data" format="fasta" label="Genome (FASTA)"/>
+        <param name="annotation" type="data" format="gtf" label="Annotation (GTF)"/>
+
+        <param name="liftover" type="data" format="gz" label="Liftover Chain (optional)" optional="true"/>
+        <param name="noncoding" type="data" format="bed" label="Noncoding BED (optional)" optional="true"/>
+        <param name="mir" type="data" format="bed" label="miRNA BED (optional)" optional="true"/>
+        <param name="sno" type="data" format="bed" label="snoRNA BED (optional)" optional="true"/>
+        <param name="known_lncRNAs" type="data" format="fasta" label="Known lncRNAs (optional)" optional="true"/>
+        <param name="design" type="data" format="tsv" label="Design TSV (optional)" optional="true"/>
+
+        <!-- Related species -->
+        <param name="rel_sp_name" type="text" label="Related species name" value="Mus_musculus"/>
+        <param name="genome_related_species" type="data" format="fasta" label="Related species genome"/>
+        <param name="annotation_related_species" type="data" format="gtf" label="Related species annotation"/>
+        <param name="rel_liftover" type="data" format="gz" label="Related liftover chain (optional)" optional="true"/>
+        <param name="rel_noncoding" type="data" format="bed" label="Related species noncoding BED (optional)" optional="true"/>
+        <param name="rel_mir" type="data" format="bed" label="Related species miRNA BED (optional)" optional="true"/>
+        <param name="rel_sno" type="data" format="bed" label="Related species snoRNA BED (optional)" optional="true"/>
+    </inputs>
+
+    <outputs>
+        <data name="results_zip" format="zip" label="LncRAnalyzer Output" from_work_dir="LncRAnalyzer-summary.zip"/>
+    </outputs>
+
+    <stdio>
+        <exit_code range="1:" level="fatal" description="Pipeline error"/>
+    </stdio>
+
+    <!-- TEST SECTION -->
+    <tests>
+        <test>
+            <param name="reads_r1" value="SRR1_1.fastq.gz,SRR2_1.fastq.gz"/>
+            <param name="reads_r2" value="SRR1_2.fastq.gz,SRR2_2.fastq.gz"/>
+            <param name="rRNAs" value="test_rRNAs.fa"/>
+            <param name="org_name" value="Homo_sapiens"/>
+            <param name="clade" value="vertebrates"/>
+            <param name="genome" value="test_genome.fa"/>
+            <param name="annotation" value="test_annotation.gtf"/>
+            <param name="rel_sp_name" value="Mus_musculus"/>
+            <param name="genome_related_species" value="test_rel_genome.fa"/>
+            <param name="annotation_related_species" value="test_rel_annotation.gtf"/>
+
+            <!-- Output check -->
+            <output name="results_zip" file="dummy_output.zip" compare="sim_size"/>
+        </test>
+    </tests>
+    <help>
+This Galaxy tool runs the Dockerized LncRAnalyzer pipeline via Bpipe.
+
+**Required:**
+- Genome, annotation, rRNA sequences for organism and related species
+- Reads R1 and R2 as comma-separated filenames (e.g., `SRR123_1.fastq.gz,SRR124_1.fastq.gz`)
+- All input files must be named appropriately and provided via Galaxy
+
+**Optional:**
+- Liftover, miRNA, snoRNA, noncoding, known lncRNAs
+
+Inputs are dynamically written to a `data.groovy` config that controls the pipeline execution.
+    </help>
+    
+    <citations>
+    <citation type="doi">10.1101/2024.10.25.620275</citation>
+    <citation type="bibtex">
+            @article {Nikhil2024.10.25.620275,
+                author = {Nikhil, Shinde and Mohideen, Habeeb Shaikh and Sella, Raja Natesan},
+                title = {LncRAnalyzer: Uncovering Long Non-Coding RNAs and Exploring Gene Co-expression Patterns in Sorghum Genomics},
+                elocation-id = {2024.10.25.620275},
+                year = {2024},
+                doi = {10.1101/2024.10.25.620275},
+                publisher = {Cold Spring Harbor Laboratory},
+                URL = {https://www.biorxiv.org/content/early/2024/10/25/2024.10.25.620275},
+                eprint = {https://www.biorxiv.org/content/early/2024/10/25/2024.10.25.620275.full.pdf},
+                journal = {bioRxiv}
+            }
+            </citation>
+    </citations>
+</tool>
+
